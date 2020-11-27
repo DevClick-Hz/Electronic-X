@@ -1,28 +1,59 @@
 <template>
   <div id="app">
     <!-----------------------------------------navbar------------------------------------------------>
-    <navbar></navbar>
-        <div class="search-bar">
-          <input type="text" v-model="search" placeholder="Search for a product">
-        </div>
-    <router-view :search="search"></router-view>
-    <checkout></checkout>
+    <navbar :logon="logon" :cartItems="cartItems" :wishItems="wishItems"></navbar>
+    <router-view :logon="logon"></router-view>
     <foot></foot>
   </div>
 </template>
 
 <script>
-import foot from "./components/foot"
-import navbar from './components/navbar'
-import checkout from './components/checkout'
+import foot from "./components/foot";
+import navbar from "./components/navbar";
+import firebase from 'firebase/app';
 export default {
   name: "App",
   data() {
     return {
-      search: "",
+      logon:"",
     };
   },
-  components: {foot , navbar, checkout},
+  components: { foot, navbar },
+  computed:{
+    cartItems() {
+      if(this.logon){ 
+       return this.$store.state.userCart
+      }else{
+        return this.$store.state.guestCart
+      }
+    },
+    wishItems(){
+       if(this.logon){
+       return this.$store.state.userWish
+      }else{
+        return this.$store.state.guestWish
+      }
+    }
+  },
+   created() { 
+             firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+              this.logon = true
+              const db = this.$firebase.firestore();
+                db.collection('users').get().then(snap=>{
+                 snap.forEach(doc=>{
+                 if(doc.data().email === user.email){
+                   this.$store.dispatch('loadCart')
+                  this.$store.state.userWish = doc.data().userWish
+                }
+                 })
+             })
+            }else{
+              this.logon = false
+              return "error"
+            }
+            })
+  },
 };
 </script>
 
@@ -41,7 +72,7 @@ html {
   color: white !important;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Display", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -53,6 +84,9 @@ html {
 button {
   border: none;
 }
+button:focus {
+  outline: none !important;
+}
 .tab {
   text-decoration: none !important;
   color: rgb(189, 189, 189);
@@ -62,15 +96,6 @@ button {
 }
 p {
   margin: 0;
-}
-img {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-.products {
-  margin-top: 100px !important;
 }
 a {
   color: rgb(44, 44, 44);
@@ -140,12 +165,6 @@ a {
   width: 60%;
   margin: 20px auto;
 }
-.payment input {
-  border: 2px solid lightgray;
-  border-radius: 10px;
-  height: 35px;
-  text-align: center;
-}
 .payment {
   display: flex;
   flex-wrap: wrap;
@@ -176,12 +195,17 @@ a {
   display: flex;
   flex-direction: column;
 }
-input{
+input {
   outline: none;
 }
-.search-bar input{
-  width: 100%;
-  border: none;
+.search-bar input {
+  width: 50%;
+  margin: 0 auto;
+  border-bottom: 2px solid black;
+  border-top: none;
+  border-right: none;
+  border-left: none;
   padding: 0 20px;
+  text-align: center;
 }
 </style>

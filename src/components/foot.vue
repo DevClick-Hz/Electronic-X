@@ -1,59 +1,102 @@
 <template>
-    <footer>
-        <div class="elec">
-            <h5>Electronic-X</h5>
-            <h5>&copy; 2020</h5>
-        </div>
-        <div class="media">
-          <i class="fab fa-instagram fa-lg"></i>
-          <i class="fab fa-twitter fa-lg"></i>
-          <i class="fab fa-facebook fa-lg"></i>
-          <i class="fab fa-youtube fa-lg"></i>
-        </div>
-        <div class="contact">
-            <h5>Contact Us</h5>
-          <h6>telephone: +467000000000</h6>
-          <h6>Email: Electronic-X@Electronic-X.com</h6>
-        </div>
-    </footer>
+  <footer>
+    <div class="foot-info">
+    <div class="media">
+      <h5>Follow us</h5>
+      <div class="social">
+      <i class="fab fa-instagram fa-lg"></i>
+      <i class="fab fa-twitter fa-lg"></i>
+      <i class="fab fa-facebook fa-lg"></i>
+      <i class="fab fa-youtube fa-lg"></i>
+      </div>
+      <p>Download our app</p>
+      <div class="stores">
+        <img src="../assets/apple-store.svg" alt="">
+        <img src="../assets/google-play.svg" alt="">
+      </div>
+    </div>
+    <div class="contact">
+      <h5>Find us</h5>
+      <p><i class="fas fa-map-marker-alt"></i> Sweden,Stockholm</p>
+      <p><i class="fas fa-phone-alt"></i> +467000000000</p>
+      <p><i class="fas fa-envelope"></i> info@Electronic-X.com</p>
+    </div>
+    <div class="support">
+      <h5>Help & Support</h5>
+      <p>Customer Support</p>
+      <p>Return</p>
+      <p>Payment</p>
+      <p>Delivery</p>
+      <p></p>
+    </div>
+    <div class="Discover">
+      <h5>Discover Electronic-X</h5>
+      <p>About us</p>
+      <p>Career</p>
+      <p>privacy policy</p>
+      <p></p>
+    </div>
+    </div>
+    <h6>Electronic-X &copy; 2020</h6>
+  </footer>
 </template>
 <script>
 export default {
-    name: 'foot'
-}
+  name: "foot",
+};
 </script>
 
 
 <style scoped>
-footer{
-    background-color: #17a2b8 !important;
-    color: white;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0.5rem 1rem;
-    margin-top: 3rem;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+footer {
+  background-color: #9d65c9 !important;
+  color: white;
+  padding: 0.5rem 1rem;
 }
-@media screen and (min-width: 320px) and (max-width: 780px) {
-    footer{
-        position: relative;
-    }
+.foot-info{
+   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  text-align: left;
+  gap: 5px;
+  margin: 30px 0;
+  padding: 30px 0;
+  border-bottom: 1px solid white;
 }
-.elec , .media ,.contact{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
+footer h5{
+  border-bottom: 1px dotted white;
+  width: 100%;
 }
-.media i{
-    cursor: pointer;
+footer p{
+  margin: 0;
 }
-.contact{
-    flex-direction: column;
+.media,
+.contact,
+.Discover,
+.support {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+}
+.media i {
+  cursor: pointer;
+}
+.fab{
+  margin: 0 3px;
+}
+.stores img{
+  height: 30px;
+  width: 30px;
+  margin: 0 5px;
+}
+.stores{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 </style>

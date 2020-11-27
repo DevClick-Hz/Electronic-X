@@ -1,20 +1,30 @@
 <template>
-    <div>
-      <category :search="search" :items="laptops"></category>
-    </div>
+  <div>
+    <category :items="laptops" :search="search"></category>
+  </div>
 </template>
 
 <!------------------------------------------script---------------------------------------------------->
 <script>
-import category from "../components/category"
+import { bus } from "../main";
+import category from "../components/category";
 export default {
-    name: 'laptops',
-    components:{category},
-    props:['search'],
-    computed:{
-        laptops(){
-            return this.$store.state.laptops
-        }
-    }
-}
+  name: "laptops",
+  data() {
+    return {
+      search: "",
+    };
+  },
+  components: { category },
+  computed: {
+    laptops() {
+      return this.$store.state.laptops;
+    },
+  },
+  created() {
+    bus.$on("changeSearch", (data) => {
+      this.search = data;
+    });
+  },
+};
 </script>
